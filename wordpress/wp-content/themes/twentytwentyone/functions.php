@@ -410,6 +410,9 @@ function twenty_twenty_one_scripts() {
 	// Print styles.
 	wp_enqueue_style( 'twenty-twenty-one-print-style', get_template_directory_uri() . '/assets/css/print.css', array(), wp_get_theme()->get( 'Version' ), 'print' );
 
+	// News layout styles.
+	wp_enqueue_style( 'twenty-twenty-one-news-layout', get_template_directory_uri() . '/assets/css/news-layout.css', array( 'twenty-twenty-one-style' ), wp_get_theme()->get( 'Version' ) );
+
 	// Threaded comment reply styles.
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -701,3 +704,48 @@ function twentytwentyone_footer_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'twentytwentyone_footer_widgets_init' );
+
+/**
+ * Add custom meta box for news overlay
+ */
+function add_news_overlay_meta_box() {
+    add_meta_box(
+        'news_overlay_meta_box',
+        'News Overlay Settings',
+        'news_overlay_meta_box_callback',
+        'post',
+        'side',
+        'default'
+    );
+}
+add_action( 'add_meta_boxes', 'add_news_overlay_meta_box' );
+
+function news_overlay_meta_box_callback( $post ) {
+    wp_nonce_field( 'news_overlay_meta_box', 'news_overlay_meta_box_nonce' );
+    $value = get_post_meta( $post->ID, 'has_overlay', true );
+    ?>
+    <label for="has_overlay">
+        <input type="checkbox" id="has_overlay" name="has_overlay" value="1" <?php checked( $value, 1 ); ?> />
+        Enable special overlay for this post
+    </label>
+    <?php
+}
+
+function save_news_overlay_meta_box( $post_id ) {
+    if ( ! isset( $_POST['news_overlay_meta_box_nonce'] ) ) {
+        return;
+    }
+    if ( ! wp_verify_nonce( $_POST['news_overlay_meta_box_nonce'], 'news_overlay_meta_box' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+        return;
+    }
+    
+    $has_overlay = isset( $_POST['has_overlay'] ) ? 1 : 0;
+    update_post_meta( $post_id, 'has_overlay', $has_overlay );
+}
+add_action( 'save_post', 'save_news_overlay_meta_box' );

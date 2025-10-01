@@ -11,15 +11,43 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-	<?php get_template_part( 'template-parts/header/excerpt-header', get_post_format() ); ?>
-
-	<div class="entry-content">
-		<?php get_template_part( 'template-parts/excerpt/excerpt', get_post_format() ); ?>
-	</div><!-- .entry-content -->
-
-	<footer class="entry-footer default-max-width">
-		<?php twenty_twenty_one_entry_meta_footer(); ?>
-	</footer><!-- .entry-footer -->
+<article id="post-<?php the_ID(); ?>" <?php post_class('news-card'); ?>>
+	<div class="news-card-container">
+		<div class="news-content">
+			<div class="news-header">
+				<div class="news-date">
+					<span class="date-number"><?php echo get_the_date('d'); ?></span>
+					<div class="date-text">
+						<span class="month"><?php echo get_the_date('M'); ?></span>
+						<span class="year"><?php echo get_the_date('Y'); ?></span>
+					</div>
+				</div>
+				<div class="news-title-section">
+					<h2 class="news-title">
+						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+					</h2>
+					
+					<div class="news-category">
+						<?php
+						$categories = get_the_category();
+						if (!empty($categories)) {
+							echo '<span class="category-text">Categories ' . esc_html($categories[0]->name) . '</span>';
+						}
+						?>
+					</div>
+					
+					<div class="news-excerpt">
+						<?php 
+						$excerpt = get_the_excerpt();
+						if (strlen($excerpt) > 100) {
+							echo substr($excerpt, 0, 100) . '...';
+						} else {
+							echo $excerpt;
+						}
+						?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </article><!-- #post-${ID} -->

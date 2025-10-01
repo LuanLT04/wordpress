@@ -26,11 +26,13 @@ get_header(); ?>
 if ( have_posts() ) {
 
 	// Load posts loop.
+	echo '<div class="news-archive-container">';
 	while ( have_posts() ) {
 		the_post();
 
-		get_template_part( 'template-parts/content/content', get_theme_mod( 'display_excerpt_or_full_post', 'excerpt' ) );
+		get_template_part( 'template-parts/content/content-excerpt' );
 	}
+	echo '</div>';
 
 	// Previous/next page navigation.
 	twenty_twenty_one_the_posts_navigation();
