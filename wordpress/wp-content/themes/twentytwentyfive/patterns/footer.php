@@ -75,7 +75,7 @@
 			<p class="has-small-font-size"><?php esc_html_e( 'Twenty Twenty-Five', 'twentytwentyfive' ); ?></p>
 			<!-- /wp:paragraph -->
 			<!-- wp:paragraph {"fontSize":"small"} -->
-			<p class="has-small-font-size">
+			<p class="has-small-font-size">	
 				<?php
 				printf(
 					/* translators: Designed with WordPress. %s: WordPress link. */
