@@ -1,0 +1,279 @@
+/* News Card Layout Styles */
+.news-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: visible;
+    transition: none;
+    max-width: 400px;
+    margin-left: 0;
+    margin-right: auto;
+    padding: 20px;
+}
+
+.news-card:hover {
+    transform: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.news-card-container {
+    display: flex;
+    min-height: auto;
+    align-items: flex-start;
+}
+
+/* Image Container - Removed since only text content is needed */
+
+/* Content Container */
+.news-content {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* News Header - Date and Title side by side like in image */
+.news-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+/* Date Styling - Exactly like the image */
+.news-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 0;
+    flex-shrink: 0;
+    width: 80px;
+    padding-right: 15px;
+    padding-left: 5px;
+    border-right: 2px solid #d0d0d0;
+    min-height: 80px;
+}
+
+.date-number {
+    font-size: 42px;
+    font-weight: bold;
+    color: #2c2c2c;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: Arial, sans-serif;
+}
+
+.date-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.month {
+    font-size: 14px;
+    color: #2c2c2c;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 2px;
+}
+
+.year {
+    font-size: 14px;
+    color: #2c2c2c;
+    font-weight: 400;
+    font-family: Arial, sans-serif;
+}
+
+/* Title Section */
+.news-title-section {
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 5px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 300px;
+}
+
+.news-title {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+    padding-right: 10px;
+}
+
+.news-title a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-title a:hover {
+    color: #004499;
+}
+
+.news-category {
+    margin-bottom: 0;
+    display: none;
+}
+
+.category-text {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* News Excerpt */
+.news-excerpt {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666;
+    margin-top: 0;
+    font-family: Arial, sans-serif;
+    padding-left: 0;
+    padding-right: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.news-excerpt p {
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .news-card {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .news-content {
+        padding: 0;
+    }
+    
+    .news-header {
+        flex-direction: column;
+    }
+    
+    .news-date {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: auto;
+        border-right: none;
+        padding-right: 0;
+        min-height: auto;
+    }
+    
+    .news-title-section {
+        padding-left: 0;
+        min-height: auto;
+        max-width: 100%;
+    }
+    
+    .news-excerpt {
+        padding-left: 0;
+    }
+    
+    .date-number {
+        font-size: 32px;
+    }
+    
+    .news-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-card {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .news-content {
+        padding: 0;
+    }
+    
+    .news-header {
+        flex-direction: column;
+    }
+    
+    .news-date {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: auto;
+        border-right: none;
+        padding-right: 0;
+        min-height: auto;
+    }
+    
+    .news-title-section {
+        padding-left: 0;
+        min-height: auto;
+        max-width: 100%;
+    }
+    
+    .news-excerpt {
+        padding-left: 0;
+    }
+    
+    .date-number {
+        font-size: 28px;
+    }
+    
+    .news-title {
+        font-size: 14px;
+    }
+    
+    .news-excerpt {
+        font-size: 13px;
+    }
+}
+
+/* Archive page specific styles */
+.news-archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.archive .news-card {
+    margin-bottom: 40px;
+}
+
+.archive .news-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Ensure proper spacing in archive */
+.archive .entry-content {
+    margin: 0;
+}
+
+.archive .entry-content .news-card {
+    margin-bottom: 30px;
+}
+
+/* Home page specific styles */
+.home .news-archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Search results specific styles */
+.search .news-archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
