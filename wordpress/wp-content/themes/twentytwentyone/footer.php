@@ -38,7 +38,7 @@
 				
 				<?php if ( is_active_sidebar( 'footer-2' ) ) : ?>
 					<div class="col-lg-4 col-md-6 col-sm-6 col-12 footer-column-2">
-					<h5>BÀI VIẾT</h5>
+					<h5>DANH MUC</h5>
 						<div class="footer-widget">
 							<?php dynamic_sidebar( 'footer-2' ); ?>
 						</div>
@@ -47,7 +47,7 @@
 				
 				<?php if ( is_active_sidebar( 'footer-3' ) ) : ?>
 					<div class="col-lg-4 col-md-6 col-sm-6 col-12">
-					<h5>DANH MỤC</h5>
+					<h5>BÌNH LUẬN</h5>
 						<div class="footer-widget">
 							<?php dynamic_sidebar( 'footer-3' ); ?>
 						</div>
