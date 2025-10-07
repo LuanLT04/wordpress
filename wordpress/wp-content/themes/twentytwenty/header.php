@@ -56,7 +56,7 @@
 
 					<?php } ?>
 
-					<div class="header-titles">
+				<div class="header-titles">
 
 						<?php
 							// Site title or logo.
@@ -65,8 +65,13 @@
 							// Site description.
 							twentytwenty_site_description();
 						?>
+	            <div class="header-inline-search" role="search">
+					<a class="header-home-link" href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a>
+					<?php get_search_form(); ?>
+				</div>
+				</div><!-- .header-titles -->
 
-					</div><!-- .header-titles -->
+			
 
 					<button class="toggle nav-toggle mobile-nav-toggle" data-toggle-target=".menu-modal"  data-toggle-body-class="showing-menu-modal" aria-expanded="false" data-set-focus=".close-nav-toggle">
 						<span class="toggle-inner">
