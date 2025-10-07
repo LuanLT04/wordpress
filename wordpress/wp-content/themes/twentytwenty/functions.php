@@ -202,6 +202,9 @@ function twentytwenty_register_styles() {
 	// Enqueue the CSS file for the variable font, Inter.
 	wp_enqueue_style( 'twentytwenty-fonts', get_theme_file_uri( '/assets/css/font-inter.css' ), array(), $theme_version, 'all' );
 
+    // Enqueue news card layout styles.
+    wp_enqueue_style( 'twentytwenty-news-layout', get_theme_file_uri( '/assets/css/news-layout.css' ), array( 'twentytwenty-style' ), $theme_version, 'all' );
+
 	// Add output of Customizer settings as inline style.
 	$customizer_css = twentytwenty_get_customizer_css( 'front-end' );
 	if ( $customizer_css ) {
