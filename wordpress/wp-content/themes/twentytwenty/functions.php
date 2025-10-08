@@ -238,6 +238,10 @@ function twentytwenty_register_scripts() {
 	 */
 	wp_enqueue_script( 'twentytwenty-js', get_template_directory_uri() . '/assets/js/index.js', array(), $theme_version );
 	wp_script_add_data( 'twentytwenty-js', 'strategy', 'defer' );
+	
+	// Enqueue account modal script
+	wp_enqueue_script( 'twentytwenty-account-modal', get_template_directory_uri() . '/assets/js/account-modal.js', array(), $theme_version );
+	wp_script_add_data( 'twentytwenty-account-modal', 'strategy', 'defer' );
 }
 
 add_action( 'wp_enqueue_scripts', 'twentytwenty_register_scripts' );

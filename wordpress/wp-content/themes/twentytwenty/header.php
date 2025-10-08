@@ -169,6 +169,21 @@
 						}
 						?>
 
+						<!-- Account Toggle -->
+						<div class="toggle-wrapper account-toggle-wrapper">
+							<button class="toggle account-toggle" data-toggle-target=".account-modal" data-toggle-body-class="showing-account-modal" aria-expanded="false">
+								<span class="toggle-inner">
+									<span class="toggle-icon">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+											<path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" stroke-width="2"/>
+										</svg>
+									</span>
+									<span class="toggle-text"><?php _e( 'Account', 'twentytwenty' ); ?></span>
+								</span>
+							</button><!-- .account-toggle -->
+						</div><!-- .account-toggle-wrapper -->
+
 						</div><!-- .header-toggles -->
 						<?php
 					}
@@ -190,3 +205,6 @@
 		<?php
 		// Output the menu modal.
 		get_template_part( 'template-parts/modal-menu' );
+		
+		// Output the account modal.
+		get_template_part( 'template-parts/modal-account' );
