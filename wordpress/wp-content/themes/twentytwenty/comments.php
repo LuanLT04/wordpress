@@ -14,13 +14,13 @@
  * return early without loading the comments.
 */
 if ( post_password_required() ) {
-	return;
+    return;
 }
 
 if ( $comments ) {
-	?>
+    ?>
 
-	<div class="comments" id="comments">
+    <div class="comments" id="comments">
 
 		<?php
 		$comments_number = get_comments_number();
@@ -106,13 +106,39 @@ if ( comments_open() || pings_open() ) {
 		echo '<hr class="styled-separator is-style-wide" aria-hidden="true" />';
 	}
 
-	comment_form(
-		array(
-			'class_form'         => 'section-inner thin max-percentage',
-			'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
-			'title_reply_after'  => '</h2>',
-		)
+	$default_args = array(
+		'class_form'         => 'section-inner thin max-percentage',
+		'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
+		'title_reply_after'  => '</h2>',
 	);
+
+	if ( is_user_logged_in() ) {
+		$custom_args = array_merge(
+			$default_args,
+			array(
+				'title_reply'          => __( 'Make a Post', 'twentytwenty' ),
+				'comment_notes_before' => '',
+				'comment_notes_after'  => '',
+				'logged_in_as'         => '',
+				'label_submit'         => __( 'share', 'twentytwenty' ),
+				'class_form'           => 'comment-card__form',
+				'class_submit'         => 'submit comment-card__submit',
+				'submit_field'         => '<p class="form-submit comment-card__submit-wrapper">%1$s %2$s</p>',
+				'title_reply_before'   => '<div class="comment-card__tab-header"><h2 id="reply-title" class="comment-reply-title comment-card__tab">',
+				'title_reply_after'    => '</h2></div>',
+				'comment_field'        => sprintf(
+					'<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="3" maxlength="65525" required="required" aria-required="true" placeholder="%s"></textarea></p>',
+					esc_attr__( 'What are you thinking...', 'twentytwenty' )
+				),
+			)
+		);
+
+		echo '<div class="comment-card">';
+		comment_form( $custom_args );
+		echo '</div>';
+	} else {
+		comment_form( $default_args );
+	}
 
 } elseif ( is_single() ) {
 
