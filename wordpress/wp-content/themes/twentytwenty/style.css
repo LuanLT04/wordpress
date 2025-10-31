@@ -4116,6 +4116,132 @@ div.comment:first-of-type {
 }
 
 
+/* Comment card for logged-in users -------------------------------- */
+
+.comment-card {
+    border: 0.1rem solid #ddd;
+    border-radius: 0.6rem;
+    background: #f5f5f5;
+    margin: 3rem auto;
+    padding: 0;
+    max-width: 60rem;
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
+}
+
+.comment-card .comment-respond {
+	margin: 0;
+	padding: 0;
+}
+
+.comment-card__tab-header {
+    background: #f5f5f5;
+    padding: 1.2rem 1.6rem 0;
+}
+
+.comment-card .comment-reply-title.comment-card__tab {
+    margin: 0;
+    padding: 1rem 2rem;
+    background: #ffffff;
+    border: 0.1rem solid #ddd;
+    border-bottom: none;
+    border-radius: 0.6rem 0.6rem 0 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #555;
+    text-align: left;
+    display: inline-block;
+    position: relative;
+    top: 0.1rem;
+}
+
+.comment-card__form {
+    padding: 2rem 2rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    background: #ffffff;
+    border-radius: 0 0 0.6rem 0.6rem;
+}
+
+.comment-card__form .form-submit {
+    display: flex !important;
+    justify-content: flex-end !important;
+    margin-top: 1rem;
+}
+
+.comment-card .comment-respond .comment-card__form .form-submit {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+}
+
+.comment-card .comment-respond .comment-card__form p.form-submit {
+    text-align: right !important;
+    display: block !important;
+}
+
+/* Force button to right - final override */
+.comment-card p.form-submit,
+.comment-card .form-submit,
+form.comment-card__form p.form-submit {
+    text-align: right !important;
+    margin-left: auto !important;
+}
+
+.comment-card__submit-wrapper {
+    text-align: right !important;
+    display: block !important;
+    margin: 0 !important;
+}
+
+.comment-card__form .comment-form-comment {
+	margin: 0;
+}
+
+.comment-card__form textarea {
+    width: 100%;
+    min-height: 18rem;
+    padding: 1.2rem 1.6rem;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.4rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #333;
+    background: #ffffff;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.comment-card__form textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+}
+
+.comment-card__form textarea::placeholder {
+    color: #999;
+}
+
+.comment-card__submit {
+    background: #007bff !important;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 1rem 2.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.comment-card__submit:hover,
+.comment-card__submit:focus {
+    background: #0056b3;
+    box-shadow: 0 0.3rem 0.6rem rgba(0, 123, 255, 0.3);
+}
+
+
 /* Reply Respond ---------------------------- */
 
 .comments .comment-respond {
