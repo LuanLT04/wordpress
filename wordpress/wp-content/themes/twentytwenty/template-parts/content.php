@@ -78,12 +78,29 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'news-card' ); ?>>
     <div class="news-card-container">
-        <div class="news-content">
+        <!-- Left Column: Image with Overlay -->
+        <div class="news-image-column">
+            <?php if ( has_post_thumbnail() ) : ?>
+                <div class="news-image-wrapper">
+                    <?php the_post_thumbnail( 'large', array( 'class' => 'news-featured-image' ) ); ?>
+                </div>
+            <?php else : ?>
+                <div class="news-image-wrapper no-image">
+                    <div class="placeholder-content">
+                        <div class="placeholder-title"><?php the_title(); ?></div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+        
+        <!-- Right Column: Content -->
+        <div class="news-content-column">
+            <!-- Date and Title Section -->
             <div class="news-header">
                 <div class="news-date">
                     <span class="date-number"><?php echo get_the_date( 'd' ); ?></span>
                     <div class="date-text">
-                        <span class="month"><?php echo 'TH' . get_the_date( 'm' ); ?></span>
+                        <span class="month">THÁNG <?php echo get_the_date( 'm' ); ?></span>
                         <span class="year"><?php echo get_the_date( 'Y' ); ?></span>
                     </div>
                 </div>
@@ -91,19 +108,11 @@
                     <h2 class="news-title">
                         <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                     </h2>
-                    <div class="news-category">
-                        <?php
-                        $categories = get_the_category();
-                        if ( ! empty( $categories ) ) {
-                            echo '<span class="category-text">Categories ' . esc_html( $categories[0]->name ) . '</span>';
-                        }
-                        ?>
-                    </div>
                     <div class="news-excerpt">
                         <?php
                         $excerpt = get_the_excerpt();
-                        if ( strlen( $excerpt ) > 100 ) {
-                            echo esc_html( mb_substr( wp_strip_all_tags( $excerpt ), 0, 100 ) ) . '...';
+                        if ( strlen( $excerpt ) > 150 ) {
+                            echo esc_html( mb_substr( wp_strip_all_tags( $excerpt ), 0, 150 ) ) . '...';
                         } else {
                             echo esc_html( $excerpt );
                         }
@@ -111,6 +120,9 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Social and Live Button -->
+           
         </div>
     </div>
 </article><!-- #post-${ID} -->
