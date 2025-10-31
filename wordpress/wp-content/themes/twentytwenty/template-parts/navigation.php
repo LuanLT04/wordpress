@@ -33,7 +33,13 @@ if ( $next_post || $prev_post ) {
 				?>
 
 				<a class="previous-post" href="<?php echo esc_url( get_permalink( $prev_post->ID ) ); ?>">
-					<span class="arrow" aria-hidden="true">&larr;</span>
+					<span class="post-date" aria-hidden="true">
+						<span class="date-main">
+							<span class="date-day"><?php echo esc_html( get_the_date( 'd', $prev_post->ID ) ); ?></span>
+							<span class="date-month"><?php echo esc_html( get_the_date( 'm', $prev_post->ID ) ); ?></span>
+						</span>
+						<span class="date-year"><?php echo esc_html( get_the_date( 'y', $prev_post->ID ) ); ?></span>
+					</span>
 					<span class="title"><span class="title-inner"><?php echo wp_kses_post( get_the_title( $prev_post->ID ) ); ?></span></span>
 				</a>
 
@@ -44,8 +50,14 @@ if ( $next_post || $prev_post ) {
 				?>
 
 				<a class="next-post" href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>">
-					<span class="arrow" aria-hidden="true">&rarr;</span>
-						<span class="title"><span class="title-inner"><?php echo wp_kses_post( get_the_title( $next_post->ID ) ); ?></span></span>
+					<span class="post-date" aria-hidden="true">
+						<span class="date-main">
+							<span class="date-day"><?php echo esc_html( get_the_date( 'd', $next_post->ID ) ); ?></span>
+							<span class="date-month"><?php echo esc_html( get_the_date( 'm', $next_post->ID ) ); ?></span>
+						</span>
+						<span class="date-year"><?php echo esc_html( get_the_date( 'y', $next_post->ID ) ); ?></span>
+					</span>
+					<span class="title"><span class="title-inner"><?php echo wp_kses_post( get_the_title( $next_post->ID ) ); ?></span></span>
 				</a>
 				<?php
 			}
