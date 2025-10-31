@@ -6583,3 +6583,58 @@ a.to-the-top > * {
 	}
 }
 
+/* detail */
+.single-post-custom {
+    background: #fff;
+    padding: 35px 40px;
+    margin: 40px auto;
+    position: relative;
+    max-width: 800px;
+}
+
+.post-header-custom {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.date-circle {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fdd835; /* màu vàng nhẹ */
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.date-circle span {
+    line-height: 1.1;
+    font-size: 13px;
+}
+
+.date-circle .day {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.post-title-custom {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.post-content-custom {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.8;
+    text-align: justify;
+}
