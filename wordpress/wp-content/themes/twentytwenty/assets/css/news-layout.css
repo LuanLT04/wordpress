@@ -1,0 +1,600 @@
+/* News Card Layout Styles */
+.news-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: visible;
+    transition: none;
+    max-width: 400px;
+    margin-left: 150px;
+    margin-right: auto;
+    padding: 20px;
+}
+
+.news-card:hover {
+    transform: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.news-card-container {
+    display: flex;
+    min-height: auto;
+    align-items: flex-start;
+}
+
+/* Image Container - Removed since only text content is needed */
+
+/* Content Container */
+.news-content {
+    width: 100%;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* News Header - Date and Title side by side like in image */
+.news-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+/* Date Styling - Exactly like the image */
+.news-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 0;
+    flex-shrink: 0;
+    width: 80px;
+    padding-right: 15px;
+    padding-left: 5px;
+    border-right: 2px solid #d0d0d0;
+    min-height: 80px;
+}
+
+.date-number {
+    font-size: 42px;
+    font-weight: bold;
+    color: #2c2c2c;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: Arial, sans-serif;
+}
+
+.date-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.month {
+    font-size: 14px;
+    color: #2c2c2c;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 2px;
+}
+
+.year {
+    font-size: 14px;
+    color: #2c2c2c;
+    font-weight: 400;
+    font-family: Arial, sans-serif;
+}
+
+/* Title Section */
+.news-title-section {
+    flex: 1;
+    padding-left: 15px;
+    padding-right: 5px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 300px;
+}
+
+.news-title {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+    padding-right: 10px;
+}
+
+.news-title a {
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-title a:hover {
+    color: #004499;
+}
+
+.news-category {
+    margin-bottom: 0;
+    display: none;
+}
+
+.category-text {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* News Excerpt */
+.news-excerpt {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666;
+    margin-top: 0;
+    font-family: Arial, sans-serif;
+    padding-left: 0;
+    padding-right: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.news-excerpt p {
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Normalize spacing so the first card looks identical to the rest */
+.entry-content > .news-card { margin-left: 0; margin-right: auto; display: block; }
+.entry-content > .news-card:first-child { margin-top: 0; }
+/* Remove theme top margin from the first card in the loop */
+main#site-content > article.news-card:first-of-type,
+#site-content > article.news-card:first-of-type,
+.archive main#site-content > article.news-card:first-of-type,
+.blog main#site-content > article.news-card:first-of-type,
+.search main#site-content > article.news-card:first-of-type {
+    margin-top: 0 !important;
+}
+
+/* Kill theme's extra top padding on first article in lists */
+body:not(.singular) main#site-content > article:first-of-type,
+body:not(.singular) #site-content > article:first-of-type,
+.archive main#site-content > article:first-of-type,
+.blog main#site-content > article:first-of-type,
+.search main#site-content > article:first-of-type {
+    padding-top: 0 !important;
+    padding: 20px !important;
+    margin-top: 24px !important; /* khoảng cách đồng nhất như các thẻ khác */
+}
+
+/* Remove global top padding on listing pages (source of large gap) */
+body:not(.singular) main#site-content { padding-top: 0 !important; }
+/* Ensure all cards have uniform vertical spacing */
+body:not(.singular) main#site-content > article.news-card { margin-top: 24px !important; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .news-card {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .news-content {
+        padding: 0;
+    }
+    
+    .news-header {
+        flex-direction: column;
+    }
+    
+    .news-date {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: auto;
+        border-right: none;
+        padding-right: 0;
+        min-height: auto;
+    }
+    
+    .news-title-section {
+        padding-left: 0;
+        min-height: auto;
+        max-width: 100%;
+    }
+    
+    .news-excerpt {
+        padding-left: 0;
+    }
+    
+    .date-number {
+        font-size: 32px;
+    }
+    
+    .news-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-card {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .news-content {
+        padding: 0;
+    }
+    
+    .news-header {
+        flex-direction: column;
+    }
+    
+    .news-date {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: auto;
+        border-right: none;
+        padding-right: 0;
+        min-height: auto;
+    }
+    
+    .news-title-section {
+        padding-left: 0;
+        min-height: auto;
+        max-width: 100%;
+    }
+    
+    .news-excerpt {
+        padding-left: 0;
+    }
+    
+    .date-number {
+        font-size: 28px;
+    }
+    
+    .news-title {
+        font-size: 14px;
+    }
+    
+    .news-excerpt {
+        font-size: 13px;
+    }
+}
+
+/* Archive page specific styles */
+.news-archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.archive .news-card {
+    margin-bottom: 40px;
+}
+
+.archive .news-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Ensure proper spacing in archive */
+.archive .entry-content {
+    margin: 0;
+}
+
+.archive .entry-content .news-card {
+    margin-bottom: 30px;
+}
+
+/* Home page specific styles */
+.home .news-archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Search results specific styles */
+.search .news-archive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Remove Twenty Twenty post separators (the // lines) */
+hr.styled-separator,
+.styled-separator {
+    display: none !important;
+}
+
+    /* Header layout adjustments to match screenshot */
+#site-header .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#site-header .header-titles-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+#site-header .header-inline-search {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+}
+
+#site-header .header-inline-search form.search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#site-header .header-inline-search .header-home-link {
+    margin-right: 12px;
+    color: var(--global--color-primary, #cd2653);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: var(--primary-nav--font-size, var(--global--font-size-xl, 2.00rem));
+    line-height: 1.2;
+}
+
+#site-header .header-inline-search .header-home-link:hover,
+#site-header .header-inline-search .header-home-link:focus {
+    color: var(--global--color-primary, #cd2653);
+    opacity: 0.85;
+    text-decoration: none;
+}
+
+#site-header .header-inline-search .search-field {
+    height: 36px;
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 240px;
+}
+
+#site-header .header-inline-search .search-submit {
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 4px;
+}
+
+@media (max-width: 782px) {
+    #site-header .header-inline-search { display: none; }
+}
+
+/* Account Toggle Styles */
+.account-toggle-wrapper {
+    margin-left: 16px;
+}
+
+.account-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.account-toggle:hover {
+    color: #cd2653;
+}
+
+.account-toggle .toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.account-toggle .toggle-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    fill: none;
+}
+
+.account-toggle .toggle-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: inherit;
+}
+
+/* Account dropdown arrow */
+.account-toggle::after {
+    content: '▼';
+    font-size: 10px;
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+}
+
+.account-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Responsive adjustments for account toggle */
+@media (max-width: 782px) {
+    .account-toggle-wrapper {
+        margin-left: 8px;
+    }
+    
+    .account-toggle .toggle-text {
+        display: none;
+    }
+    
+    .account-toggle {
+        padding: 8px;
+    }
+}
+
+/* Account Modal Styles */
+.account-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-modal.showing {
+    display: flex;
+}
+
+.account-modal-inner {
+    background: #fff;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.account-modal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.account-modal .modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.account-modal .close-account-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.account-modal .close-account-toggle:hover {
+    color: #cd2653;
+}
+
+.account-modal .modal-content {
+    padding: 24px;
+}
+
+.account-logged-in .account-welcome {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.account-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.account-link {
+    display: inline-block;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.account-link:hover {
+    background: #e9ecef;
+    color: #cd2653;
+}
+
+.account-login-form {
+    max-width: 100%;
+}
+
+.account-login-form form {
+    margin-bottom: 20px;
+}
+
+.account-login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.account-login-form input[type="text"],
+.account-login-form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.account-login-form input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: #cd2653;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.account-login-form input[type="submit"]:hover {
+    background: #a01e42;
+}
+
+.account-register-link {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.account-register-link a {
+    color: #cd2653;
+    text-decoration: none;
+}
+
+.account-register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive modal */
+@media (max-width: 480px) {
+    .account-modal-inner {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .account-modal .modal-header,
+    .account-modal .modal-content {
+        padding: 16px;
+    }
+}
