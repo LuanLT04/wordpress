@@ -589,9 +589,9 @@ body:not(.singular) main#site-content > article.news-card { margin-top: 24px !im
     padding: 0 20px;
 }
 
-/* Remove Twenty Twenty post separators (the // lines) */
-hr.styled-separator,
-.styled-separator {
+/* Remove Twenty Twenty post separators (the // lines) on archive/search views */
+body:not(.singular) hr.styled-separator,
+body:not(.singular) .styled-separator {
     display: none !important;
 }
 
