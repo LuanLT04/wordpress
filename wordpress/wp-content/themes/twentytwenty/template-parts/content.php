@@ -29,10 +29,12 @@
                 <?php endif; ?>
             </div>
             <div class="news-detail-date">
-                <span class="news-detail-day"><?php echo esc_html( get_the_date( 'd' ) ); ?></span>
-                <span class="news-detail-year"><?php echo esc_html( get_the_date( 'y' ) ); ?></span>
-                <span class="news-detail-separator" aria-hidden="true"></span>
-                <span class="news-detail-month"><?php echo esc_html( get_the_date( 'm' ) ); ?></span>
+                <span class="date-left">
+                    <span class="date-day news-detail-day"><?php echo esc_html( get_the_date( 'd' ) ); ?></span>
+                    <span class="date-separator" aria-hidden="true"></span>
+                    <span class="date-month news-detail-month"><?php echo esc_html( get_the_date( 'm' ) ); ?></span>
+                </span>
+                <span class="date-year news-detail-year"><?php echo esc_html( get_the_date( 'y' ) ); ?></span>
             </div>
         </div>
 
