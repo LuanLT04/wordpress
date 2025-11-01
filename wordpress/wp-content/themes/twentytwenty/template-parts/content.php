@@ -15,48 +15,58 @@
 
 <?php if ( is_singular() ) : ?>
 
-<article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
+<article <?php post_class( 'news-detail-entry' ); ?> id="post-<?php the_ID(); ?>">
 
-    <?php
-    get_template_part( 'template-parts/entry-header' );
+    <div class="news-detail-card">
+        <div class="news-detail-header">
+            <div class="news-detail-title">
+                <?php the_title( '<h1 class="news-detail-heading">', '</h1>' ); ?>
+                <?php
+                $news_detail_summary = get_the_excerpt();
+                if ( ! empty( $news_detail_summary ) ) :
+                    ?>
+                    <p class="news-detail-summary"><?php echo esc_html( $news_detail_summary ); ?></p>
+                <?php endif; ?>
+            </div>
+            <div class="news-detail-date">
+                <span class="news-detail-day"><?php echo esc_html( get_the_date( 'd' ) ); ?></span>
+                <span class="news-detail-year"><?php echo esc_html( get_the_date( 'y' ) ); ?></span>
+                <span class="news-detail-separator" aria-hidden="true"></span>
+                <span class="news-detail-month"><?php echo esc_html( get_the_date( 'm' ) ); ?></span>
+            </div>
+        </div>
 
-    if ( ! is_search() ) {
-        get_template_part( 'template-parts/featured-image' );
-    }
-    ?>
+        <?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
+            <div class="news-detail-image">
+                <?php the_post_thumbnail( 'large' ); ?>
+            </div>
+        <?php endif; ?>
 
-    <div class="post-inner <?php echo is_page_template( 'templates/template-full-width.php' ) ? '' : 'thin'; ?> ">
-        <div class="entry-content">
+        <div class="news-detail-body">
+            <?php the_content(); ?>
+        </div>
+
+        <div class="news-detail-meta">
             <?php
-            if ( is_search() ) {
-                the_excerpt();
-            } else {
-                the_content( __( 'Continue reading', 'twentytwenty' ) );
+            wp_link_pages(
+                array(
+                    'before'      => '<nav class="post-nav-links detail-nav-links" aria-label="' . esc_attr__( 'Page', 'twentytwenty' ) . '"><span class="label">' . __( 'Pages:', 'twentytwenty' ) . '</span>',
+                    'after'       => '</nav>',
+                    'link_before' => '<span class="page-number">',
+                    'link_after'  => '</span>',
+                )
+            );
+
+            edit_post_link( '', '<span class="edit-link">', '</span>' );
+
+            twentytwenty_the_post_meta( get_the_ID(), 'single-bottom' );
+
+            if ( post_type_supports( get_post_type( get_the_ID() ), 'author' ) && is_single() ) {
+                get_template_part( 'template-parts/entry-author-bio' );
             }
             ?>
-        </div><!-- .entry-content -->
-    </div><!-- .post-inner -->
-
-    <div class="section-inner">
-        <?php
-        wp_link_pages(
-            array(
-                'before'      => '<nav class="post-nav-links bg-light-background" aria-label="' . esc_attr__( 'Page', 'twentytwenty' ) . '"><span class="label">' . __( 'Pages:', 'twentytwenty' ) . '</span>',
-                'after'       => '</nav>',
-                'link_before' => '<span class="page-number">',
-                'link_after'  => '</span>',
-            )
-        );
-
-        edit_post_link();
-
-        twentytwenty_the_post_meta( get_the_ID(), 'single-bottom' );
-
-        if ( post_type_supports( get_post_type( get_the_ID() ), 'author' ) && is_single() ) {
-            get_template_part( 'template-parts/entry-author-bio' );
-        }
-        ?>
-    </div><!-- .section-inner -->
+        </div>
+    </div>
 
     <?php
     if ( is_single() ) {
