@@ -13,6 +13,7 @@
 
 ?>
 
+
 <?php if ( is_singular() ) : ?>
 
     <?php
@@ -176,6 +177,7 @@
     ?>
 
 <?php else : ?>
+
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'news-card' ); ?>>
     <div class="news-card-container">
