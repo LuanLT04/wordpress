@@ -202,8 +202,16 @@ function twentytwenty_register_styles() {
 	// Enqueue the CSS file for the variable font, Inter.
 	wp_enqueue_style( 'twentytwenty-fonts', get_theme_file_uri( '/assets/css/font-inter.css' ), array(), $theme_version, 'all' );
 
-    // Enqueue news card layout styles.
-    wp_enqueue_style( 'twentytwenty-news-layout', get_theme_file_uri( '/assets/css/news-layout.css' ), array( 'twentytwenty-style' ), $theme_version, 'all' );
+    // Enqueue news card layout styles with cache-busting version.
+    $news_layout_path    = get_theme_file_path( '/assets/css/news-layout.css' );
+    $news_layout_version = file_exists( $news_layout_path ) ? filemtime( $news_layout_path ) : $theme_version;
+    wp_enqueue_style( 'twentytwenty-news-layout', get_theme_file_uri( '/assets/css/news-layout.css' ), array( 'twentytwenty-style' ), $news_layout_version, 'all' );
+
+    $news_layout_inline_css = ' 
+.news-sidebar-block--categories .news-sidebar-heading { color: #111111 !important; }
+.news-sidebar-block--categories .news-sidebar-list li::before { background: #ffc928 !important; }
+';
+    wp_add_inline_style( 'twentytwenty-news-layout', $news_layout_inline_css );
 
 	// Add output of Customizer settings as inline style.
 	$customizer_css = twentytwenty_get_customizer_css( 'front-end' );
