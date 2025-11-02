@@ -118,22 +118,40 @@
 
         <aside class="news-sidebar news-sidebar--right">
             <div class="news-sidebar-block news-sidebar-block--recent">
-                <h2 class="news-sidebar-heading">
-                    <?php esc_html_e( 'Recent Posts', 'twentytwenty' ); ?>
-                    <?php if ( $news_recent_count ) : ?>
-                        <span class="news-sidebar-count"><?php echo esc_html( $news_recent_count ); ?></span>
-                    <?php endif; ?>
-                </h2>
                 <?php if ( $news_recent_posts ) : ?>
-                    <ul class="news-sidebar-list news-recent-list">
-                        <?php foreach ( $news_recent_posts as $news_recent_post ) : ?>
-                            <li>
-                                <a href="<?php echo esc_url( get_permalink( $news_recent_post['ID'] ) ); ?>">
-                                    <?php echo esc_html( get_the_title( $news_recent_post['ID'] ) ); ?>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <?php
+                    $news_recent_archive = get_post_type_archive_link( 'post' );
+                    if ( ! $news_recent_archive ) {
+                        $news_recent_archive = home_url( '/' );
+                    }
+                    ?>
+                    <div class="news-recent-panel">
+                        <div class="news-recent-card">
+                            <div class="news-recent-items">
+                                <?php foreach ( $news_recent_posts as $news_recent_post ) : ?>
+                                    <?php
+                                    $recent_post_id = $news_recent_post['ID'];
+                                    $recent_day     = get_the_date( 'd', $recent_post_id );
+                                    $recent_month   = get_the_date( 'm', $recent_post_id );
+                                    $recent_year    = get_the_date( 'y', $recent_post_id );
+                                    ?>
+                                    <a class="news-recent-item" href="<?php echo esc_url( get_permalink( $recent_post_id ) ); ?>">
+                                        <span class="news-recent-date" aria-hidden="true">
+                                            <span class="news-recent-date-main">
+                                                <span class="news-recent-day"><?php echo esc_html( $recent_day ); ?></span>
+                                                <span class="news-recent-month"><?php echo esc_html( $recent_month ); ?></span>
+                                            </span>
+                                            <span class="news-recent-year"><?php echo esc_html( $recent_year ); ?></span>
+                                        </span>
+                                        <span class="news-recent-title"><?php echo esc_html( get_the_title( $recent_post_id ) ); ?></span>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                            <a class="news-recent-all" href="<?php echo esc_url( $news_recent_archive ); ?>">
+                                <?php esc_html_e( 'Xem tất cả tin tức', 'twentytwenty' ); ?>
+                            </a>
+                        </div>
+                    </div>
                 <?php else : ?>
                     <p class="news-sidebar-empty"><?php esc_html_e( 'No recent posts available.', 'twentytwenty' ); ?></p>
                 <?php endif; ?>
