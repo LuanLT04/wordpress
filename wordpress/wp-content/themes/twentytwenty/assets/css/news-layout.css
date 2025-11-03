@@ -762,6 +762,21 @@ margin: 0 auto;
     display: flex !important;
 }
 
+.news-listing-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 600px) minmax(0, 1fr);
+    width: 100%;
+    margin: 0 auto 20px;
+    padding: 0 8px;
+}
+
+.news-listing-layout > .news-card {
+    grid-column: 2;
+    margin: 0;
+    max-width: 600px;
+    width: 100%;
+}
+
 /* Override any theme styles that might add padding/margin to images */
 .news-card img,
 .news-card .news-featured-image,
@@ -786,7 +801,7 @@ margin: 0 auto;
 
 /* Left Column: Image with Overlay - 40-45% as in image */
 .news-image-column {
-    flex: 0 0 42% !important;
+    flex: 0 0 40% !important;
     position: relative;
     overflow: hidden;
     padding: 0 !important;
@@ -844,8 +859,8 @@ margin: 0 auto;
 
 /* Right Column: Content - 55-60% as in image */
 .news-content-column {
-    flex: 0 0 58%;
-    padding: 20px;
+    flex: 1 1 auto;
+    padding: 8px 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -965,11 +980,13 @@ margin: 0 auto;
     align-items: flex-start;
     margin-right: 0;
     flex-shrink: 0;
-    width: 60px;
-    padding-right: 12px;
-    padding-left: 5px;
+    width: 88px;
+    min-width: 88px;
+    padding-right: 16px;
+    padding-left: 8px;
     border-right: 2px solid #d0d0d0;
     min-height: 60px;
+    margin-right: 16px;
 }
 
 .date-number {
@@ -994,6 +1011,7 @@ margin: 0 auto;
     letter-spacing: 0.5px;
     font-family: Arial, sans-serif;
     margin-bottom: 2px;
+    white-space: nowrap;
 }
 
 .year {
@@ -1006,13 +1024,14 @@ margin: 0 auto;
 /* Title Section */
 .news-title-section {
     flex: 1;
-    padding-left: 12px;
-    padding-right: 5px;
+    padding-left: 6px;
+    padding-right: 0;
     min-height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    max-width: 250px;
+    max-width: none;
+    width: 100%;
 }
 
 .news-title {
@@ -1021,7 +1040,7 @@ margin: 0 auto;
     font-weight: 700;
     line-height: 1.2;
     text-transform: uppercase;
-    padding-right: 5px;
+    padding-right: 0;
 }
 
 .news-title a {
@@ -1080,7 +1099,7 @@ margin: 0 auto;
     margin-top: 0;
     font-family: Arial, sans-serif;
     padding-left: 0;
-    padding-right: 5px;
+    padding-right: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
