@@ -93,6 +93,10 @@ get_header();
 			get_template_part( 'template-parts/content', get_post_type() );
 
 		}
+
+		if ( is_search() ) {
+			get_template_part( 'template-parts/search-last-posts' );
+		}
 	} elseif ( is_search() ) {
 		?>
 
