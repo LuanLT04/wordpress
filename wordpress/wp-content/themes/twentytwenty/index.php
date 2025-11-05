@@ -83,6 +83,16 @@ get_header();
 
 		$i = 0;
 
+		if ( is_search() ) {
+			?>
+			<div class="search-page-layout">
+				<aside class="search-page-column search-page-column--left">
+					<?php do_action( 'twentytwenty_search_sidebar_left' ); ?>
+				</aside>
+				<div class="search-page-column search-page-column--results">
+			<?php
+		}
+
 		while ( have_posts() ) {
 			++$i;
 			if ( $i > 1 ) {
@@ -95,7 +105,16 @@ get_header();
 		}
 
 		if ( is_search() ) {
-			get_template_part( 'template-parts/search-last-posts' );
+			?>
+				</div><!-- .search-page-column--results -->
+				<aside class="search-page-column search-page-column--comments">
+					<?php get_template_part( 'template-parts/search-comments' ); ?>
+				</aside>
+			</div><!-- .search-page-layout -->
+			<div class="search-page-latest">
+				<?php get_template_part( 'template-parts/search-last-posts' ); ?>
+			</div>
+			<?php
 		}
 	} elseif ( is_search() ) {
 		?>
