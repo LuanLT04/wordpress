@@ -199,13 +199,20 @@ function twentytwenty_register_styles() {
 	wp_enqueue_style( 'twentytwenty-style', get_stylesheet_uri(), array(), $theme_version );
 	wp_style_add_data( 'twentytwenty-style', 'rtl', 'replace' );
 
+	wp_enqueue_style(
+		'twentytwenty-search-layout',
+		get_template_directory_uri() . '/assets/css/search-layout.css',
+		array( 'twentytwenty-style' ),
+		$theme_version
+	);
+
 	// Enqueue the CSS file for the variable font, Inter.
 	wp_enqueue_style( 'twentytwenty-fonts', get_theme_file_uri( '/assets/css/font-inter.css' ), array(), $theme_version, 'all' );
 
     // Enqueue news card layout styles with cache-busting version.
-    $news_layout_path    = get_theme_file_path( '/assets/css/news-layout.css' );
+    $news_layout_path    = get_template_directory() . '/assets/css/news-layout.css';
     $news_layout_version = file_exists( $news_layout_path ) ? filemtime( $news_layout_path ) : $theme_version;
-    wp_enqueue_style( 'twentytwenty-news-layout', get_theme_file_uri( '/assets/css/news-layout.css' ), array( 'twentytwenty-style' ), $news_layout_version, 'all' );
+    wp_enqueue_style( 'twentytwenty-news-layout', get_template_directory_uri() . '/assets/css/news-layout.css', array( 'twentytwenty-style' ), $news_layout_version, 'all' );
 
     $news_layout_inline_css = ' 
 .news-sidebar-block--categories .news-sidebar-heading { color: #111111 !important; }
@@ -840,3 +847,59 @@ function twentytwenty_get_elements_array() {
 	 */
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
+
+function twentytwenty_render_search_sidebar_pages() {
+    $q = new WP_Query(
+        array(
+            'post_type'      => 'page',
+            'posts_per_page' => 3,
+            'orderby'        => 'date',
+            'order'          => 'DESC',
+            'no_found_rows'  => true,
+            'update_post_meta_cache' => false,
+            'update_post_term_cache' => false,
+        )
+    );
+
+    if ( $q->have_posts() ) {
+        echo '<section class="search-sidebar-pages">';
+        echo '<h3 class="search-sidebar-heading">' . esc_html__( 'Trang mới nhất', 'twentytwenty' ) . '</h3>';
+        echo '<div class="search-sidebar-pages__grid">';
+        while ( $q->have_posts() ) {
+            $q->the_post();
+            $post_id = get_the_ID();
+            echo '<article class="search-page-card">';
+            // Title on top
+            echo '<h4 class="search-page-card__title"><a href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( get_the_title( $post_id ) ) . '</a></h4>';
+
+            // Then image
+            $thumb_html = '';
+            if ( has_post_thumbnail( $post_id ) ) {
+                $thumb_html = get_the_post_thumbnail( $post_id, 'medium_large', array( 'class' => 'search-page-card__img' ) );
+            } else {
+                $content = get_post_field( 'post_content', $post_id );
+                if ( preg_match( '/<img[^>]+src=["\']([^"\']+)["\']/i', $content, $m ) ) {
+                    $src = esc_url( $m[1] );
+                    $thumb_html = '<img class="search-page-card__img" src="' . $src . '" alt="' . esc_attr( get_the_title( $post_id ) ) . '" />';
+                }
+            }
+            if ( $thumb_html ) {
+                echo '<a class="search-page-card__thumb" href="' . esc_url( get_permalink( $post_id ) ) . '">';
+                echo $thumb_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                echo '</a>';
+            }
+
+            $excerpt = get_the_excerpt();
+            if ( ! $excerpt ) {
+                $excerpt = wp_trim_words( wp_strip_all_tags( get_the_content() ), 20 );
+            }
+            echo '<div class="search-page-card__excerpt">' . wp_kses_post( wpautop( $excerpt ) ) . '</div>';
+            echo '</article>';
+        }
+        echo '</div>';
+        echo '</section>';
+        wp_reset_postdata();
+    }
+}
+
+add_action( 'twentytwenty_search_sidebar_left', 'twentytwenty_render_search_sidebar_pages' );
