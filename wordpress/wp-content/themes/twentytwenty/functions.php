@@ -848,6 +848,7 @@ function twentytwenty_get_elements_array() {
 	return apply_filters( 'twentytwenty_get_elements_array', $elements );
 }
 
+
 function twentytwenty_render_search_sidebar_pages() {
     $q = new WP_Query(
         array(
@@ -903,3 +904,34 @@ function twentytwenty_render_search_sidebar_pages() {
 }
 
 add_action( 'twentytwenty_search_sidebar_left', 'twentytwenty_render_search_sidebar_pages' );
+
+add_filter( 'posts_search', 'twentytwenty_strict_search_startswith', 10, 2 );
+function twentytwenty_strict_search_startswith( $search, $wp_query ) {
+    if ( is_admin() || ! $wp_query->is_search() || ! $wp_query->is_main_query() ) {
+        return $search;
+    }
+    global $wpdb;
+    $s = isset( $wp_query->query_vars['s'] ) ? trim( $wp_query->query_vars['s'] ) : '';
+    if ( $s === '' ) {
+        return $search;
+    }
+    $terms   = preg_split( '/\s+/', $s );
+    $clauses = array();
+    foreach ( $terms as $t ) {
+        $t = trim( $t );
+        if ( '' === $t ) {
+            continue;
+        }
+        $regex     = '[[:<:]]' . preg_quote( $t, '/' );
+        $clauses[] = $wpdb->prepare(
+            "( {$wpdb->posts}.post_title REGEXP BINARY %s OR {$wpdb->posts}.post_name REGEXP BINARY %s )",
+            $regex,
+            $regex
+        );
+    }
+    if ( empty( $clauses ) ) {
+        return $search;
+    }
+    return ' AND ' . implode( ' AND ', $clauses ) . ' ';
+}
+
