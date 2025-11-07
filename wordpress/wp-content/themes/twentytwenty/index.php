@@ -91,6 +91,42 @@ get_header();
 				</aside>
 				<div class="search-page-column search-page-column--results">
 			<?php
+		} elseif ( is_home() ) {
+			$home_archives_html = wp_get_archives(
+				array(
+					'type'   => 'monthly',
+					'limit'  => 6,
+					'echo'   => false,
+					'format' => 'custom',
+					'before' => '<li class="home-archives__item">',
+					'after'  => '</li>',
+				)
+			);
+
+			$home_comments = get_comments(
+				array(
+					'number'  => 3,
+					'orderby' => 'comment_date_gmt',
+					'order'   => 'DESC',
+					'status'  => 'approve',
+				)
+			);
+			?>
+			<div class="home-grid home-grid--twelve">
+				<aside class="home-grid__column home-grid__column--archives">
+					<section class="home-archives">
+						<h2 class="home-section-title"><?php esc_html_e( 'Archive', 'twentytwenty' ); ?></h2>
+						<?php if ( $home_archives_html ) : ?>
+							<ul class="home-archives__list">
+								<?php echo wp_kses_post( $home_archives_html ); ?>
+							</ul>
+						<?php else : ?>
+							<p class="home-archives__empty"><?php esc_html_e( 'No archives found.', 'twentytwenty' ); ?></p>
+						<?php endif; ?>
+					</section>
+				</aside>
+				<div class="home-grid__column home-grid__column--content">
+			<?php
 		}
 
 		while ( have_posts() ) {
@@ -114,6 +150,29 @@ get_header();
 			<div class="search-page-latest">
 				<?php get_template_part( 'template-parts/search-last-posts' ); ?>
 			</div>
+			<?php
+		} elseif ( is_home() ) {
+			?>
+				</div><!-- .home-grid__column--content -->
+				<aside class="home-grid__column home-grid__column--comments">
+					<section class="home-comments">
+						<h2 class="home-section-title"><?php esc_html_e( 'Comments', 'twentytwenty' ); ?></h2>
+						<?php if ( ! empty( $home_comments ) ) : ?>
+							<ul class="home-comments__list">
+								<?php foreach ( $home_comments as $recent_comment ) : ?>
+									<li class="home-comments__item">
+										<a class="home-comments__link" href="<?php echo esc_url( get_comment_link( $recent_comment ) ); ?>">
+											<?php echo esc_html( wp_trim_words( wp_strip_all_tags( $recent_comment->comment_content ), 12, '...' ) ); ?>
+										</a>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php else : ?>
+							<p class="home-comments__empty"><?php esc_html_e( 'No comments yet.', 'twentytwenty' ); ?></p>
+						<?php endif; ?>
+					</section>
+				</aside>
+			</div><!-- .home-grid -->
 			<?php
 		}
 	} elseif ( is_search() ) {
