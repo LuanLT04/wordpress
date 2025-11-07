@@ -914,11 +914,13 @@ function twentytwenty_strict_search_startswith( $search, $wp_query ) {
         return $search;
     }
     global $wpdb;
-    $s = isset( $wp_query->query_vars['s'] ) ? trim( $wp_query->query_vars['s'] ) : '';
-    if ( $s === '' ) {
-        return $search;
+    $s = isset( $wp_query->query_vars['s'] ) ? $wp_query->query_vars['s'] : '';
+    $s_trimmed = trim( $s );
+    if ( $s_trimmed === '' ) {
+        // Return empty search to show no results for empty/whitespace-only queries
+        return ' AND 1=0 ';
     }
-    $terms   = preg_split( '/\s+/', $s );
+    $terms   = preg_split( '/\s+/', $s_trimmed );
     $clauses = array();
     foreach ( $terms as $t ) {
         $t = trim( $t );
@@ -933,7 +935,7 @@ function twentytwenty_strict_search_startswith( $search, $wp_query ) {
         );
     }
     if ( empty( $clauses ) ) {
-        return $search;
+        return ' AND 1=0 ';
     }
     return ' AND ' . implode( ' AND ', $clauses ) . ' ';
 }
