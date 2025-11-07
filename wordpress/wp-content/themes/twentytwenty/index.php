@@ -92,14 +92,10 @@ get_header();
 				<div class="search-page-column search-page-column--results">
 			<?php
 		} elseif ( is_home() ) {
-			$home_archives_html = wp_get_archives(
+			$home_archives_q = new WP_Query(
 				array(
-					'type'   => 'monthly',
-					'limit'  => 6,
-					'echo'   => false,
-					'format' => 'custom',
-					'before' => '<li class="home-archives__item">',
-					'after'  => '</li>',
+					'posts_per_page'      => 8,
+					'ignore_sticky_posts' => true,
 				)
 			);
 
@@ -116,13 +112,54 @@ get_header();
 				<aside class="home-grid__column home-grid__column--archives">
 					<section class="home-archives">
 						<h2 class="home-section-title"><?php esc_html_e( 'Archive', 'twentytwenty' ); ?></h2>
-						<?php if ( $home_archives_html ) : ?>
-							<ul class="home-archives__list">
-								<?php echo wp_kses_post( $home_archives_html ); ?>
-							</ul>
-						<?php else : ?>
-							<p class="home-archives__empty"><?php esc_html_e( 'No archives found.', 'twentytwenty' ); ?></p>
-						<?php endif; ?>
+						<?php
+						$home_archive_posts = array();
+						if ( $home_archives_q->have_posts() ) {
+							while ( $home_archives_q->have_posts() ) {
+								$home_archives_q->the_post();
+								$home_archive_posts[] = get_post();
+							}
+							wp_reset_postdata();
+						}
+
+						if ( ! empty( $home_archive_posts ) ) {
+							$left_count  = min( 4, count( $home_archive_posts ) );
+							$right_count = min( 4, max( 0, count( $home_archive_posts ) - $left_count ) );
+							$max_rows    = max( $left_count, $right_count );
+							?>
+							<div class="home-archives__rows">
+								<?php for ( $row_index = 0; $row_index < $max_rows; $row_index++ ) :
+									$left_post  = isset( $home_archive_posts[ $row_index ] ) ? $home_archive_posts[ $row_index ] : null;
+									$right_post = isset( $home_archive_posts[ $left_count + $row_index ] ) ? $home_archive_posts[ $left_count + $row_index ] : null;
+									?>
+									<div class="home-archives__row">
+										<?php if ( $left_post ) : ?>
+											<div class="home-archives__cell home-archives__cell--left">
+												<span class="home-archives__rank"><?php echo esc_html( $row_index + 1 ); ?></span>
+												<a class="home-archives__link" href="<?php echo esc_url( get_permalink( $left_post ) ); ?>"><?php echo esc_html( get_the_title( $left_post ) ); ?></a>
+											</div>
+										<?php else : ?>
+											<div class="home-archives__cell home-archives__cell--left home-archives__cell--empty" aria-hidden="true"></div>
+										<?php endif; ?>
+
+										<?php if ( $right_post ) : ?>
+											<div class="home-archives__cell home-archives__cell--right">
+												<span class="home-archives__rank"><?php echo esc_html( $left_count + $row_index + 1 ); ?></span>
+												<a class="home-archives__link" href="<?php echo esc_url( get_permalink( $right_post ) ); ?>"><?php echo esc_html( get_the_title( $right_post ) ); ?></a>
+											</div>
+										<?php else : ?>
+											<div class="home-archives__cell home-archives__cell--right home-archives__cell--empty" aria-hidden="true"></div>
+										<?php endif; ?>
+									</div>
+								<?php endfor; ?>
+							</div>
+							<?php
+						} else {
+							?>
+							<p class="home-archives__empty"><?php esc_html_e( 'No posts found.', 'twentytwenty' ); ?></p>
+							<?php
+						}
+						?>
 					</section>
 				</aside>
 				<div class="home-grid__column home-grid__column--content">
