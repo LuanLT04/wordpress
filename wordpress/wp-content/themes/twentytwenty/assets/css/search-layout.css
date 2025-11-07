@@ -116,7 +116,7 @@
     border: 1px solid #d0d0d0;
     border-radius: 2px;
     padding: 6px 10px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
 }
 
 /* Titlebar notch */
@@ -154,35 +154,46 @@
 .search-comments__body {
     position: relative;
     background: #ffffff;
-    border: 1px solid #dcdcdc;
-    border-radius: 2px;
-    padding: 10px 12px;
+    border-left: 2px solid #dcdcdc;
+    border-right: 2px solid #dcdcdc;
+    border-bottom: 2px solid #dcdcdc;
+    border-top: none;
+    padding: 12px 16px;
+    margin-top: 0;
 }
+
+.search-comments__body:hover {
+    border-left-color: #0073aa;
+    border-right-color: #0073aa;
+    border-bottom-color: #0073aa;
+}
+
 .search-comments__body::before {
-    content: none;
+    content: "";
     position: absolute;
     left: -8px;
-    top: 14px; /* slight offset from top */
-    width: 0; height: 0;
+    top: 14px;
+    width: 0; 
+    height: 0;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid #dcdcdc; /* border */
 }
+
 .search-comments__body::after {
-    content: none;
     position: absolute;
     left: -7px;
     top: 14px;
-    width: 0; height: 0;
+    width: 0; 
+    height: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
-    border-right: 7px solid #ffffff; /* fill */
+    border-right: 7px solid #ffffff;
 }
 
 /* Nested replies */
 .search-comments__replies {
     list-style: none;
-    margin: 10px 0 0 40px; /* indent replies */
+    margin: 10px 0 0 0; /* remove indent */
     padding: 0;
     border-left: 0;
 }
@@ -194,6 +205,8 @@
     padding: 6px 0;
     border: 0;
     background: transparent;
+    width: 100%;
+    margin-left: 0;
 }
 
 .search-comments__reply + .search-comments__reply {
@@ -207,15 +220,26 @@
 .search-comments__titlebar--reply {
     background: #f0f0f0;
     border-color: #d6d6d6;
+    width: 100%;
+}
+
+.search-comments__reply-content {
+    width: 100%;
+    margin-left: 0;
 }
 
 .search-comments__reply-body {
     background: #ffffff;
     border-color: #e0e0e0;
+    width: 100%;
+    border-left: 2px solid #e0e0e0;
+    border-right: 2px solid #e0e0e0;
+    border-bottom: 2px solid #e0e0e0;
+    border-top: none;
 }
 .search-comments__excerpt--reply { color: #6f6f6f; }
 
-@media (max-width: 1024px) {
+@media (max-width: 1366px) {
     .search-page-layout {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
         grid-template-areas:
@@ -236,6 +260,24 @@
         grid-area: comments;
         position: static;
     }
+    
+    .search-sidebar-pages__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .search-page-card {
+        flex-direction: column;
+    }
+    
+    .search-page-card__thumb {
+        flex: none;
+    }
+    
+    .search-page-card__img {
+        width: 100%;
+        height: 150px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -248,6 +290,23 @@
     .search-page-column--left,
     .search-page-column--comments {
         position: static;
+    }
+    
+    .search-sidebar-pages__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .search-page-card__img {
+        height: 150px;
+    }
+    
+    .search-page-card__content {
+        padding: 12px;
+    }
+    
+    .search-page-card__title {
+        font-size: 1.4rem;
     }
 }
 
@@ -273,17 +332,17 @@
 
 .search-sidebar-pages__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
 }
 
 .search-page-card {
     display: flex;
     flex-direction: column;
-    border: 1px solid #e6e6e6;
     border-radius: 4px;
     overflow: hidden;
     background: #ffffff;
+    height: 100%;
 }
 
 .search-page-card__thumb {
@@ -301,15 +360,17 @@
 .search-page-card__title {
     font-size: 1.6rem;
     line-height: 1.35;
-    margin: 12px 12px 4px;
+    margin: 12px 0 4px 0;
+   
 }
 
 .search-page-card__title a {
     text-decoration: none;
+    
 }
 
 .search-page-card__excerpt {
-    margin: 0 12px 12px;
+    margin: 0 0 12px 0;
     color: #555555;
     font-size: 1.4rem;
     line-height: 1.6;

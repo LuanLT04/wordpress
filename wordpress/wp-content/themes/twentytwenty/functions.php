@@ -201,7 +201,7 @@ function twentytwenty_register_styles() {
 
 	wp_enqueue_style(
 		'twentytwenty-search-layout',
-		get_template_directory_uri() . '/assets/css/search-layout.css',
+		get_template_directory_uri() . '/assets/css/search-layout.css?v=' . time(),
 		array( 'twentytwenty-style' ),
 		$theme_version
 	);
@@ -869,10 +869,11 @@ function twentytwenty_render_search_sidebar_pages() {
             $q->the_post();
             $post_id = get_the_ID();
             echo '<article class="search-page-card">';
-            // Title on top
+            
+            // Title first
             echo '<h4 class="search-page-card__title"><a href="' . esc_url( get_permalink( $post_id ) ) . '">' . esc_html( get_the_title( $post_id ) ) . '</a></h4>';
-
-            // Then image
+            
+            // Image in middle
             $thumb_html = '';
             if ( has_post_thumbnail( $post_id ) ) {
                 $thumb_html = get_the_post_thumbnail( $post_id, 'medium_large', array( 'class' => 'search-page-card__img' ) );
@@ -888,12 +889,14 @@ function twentytwenty_render_search_sidebar_pages() {
                 echo $thumb_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 echo '</a>';
             }
-
+            
+            // Excerpt last
             $excerpt = get_the_excerpt();
             if ( ! $excerpt ) {
-                $excerpt = wp_trim_words( wp_strip_all_tags( get_the_content() ), 20 );
+                $excerpt = wp_trim_words( wp_strip_all_tags( get_the_content() ), 15 );
             }
-            echo '<div class="search-page-card__excerpt">' . wp_kses_post( wpautop( $excerpt ) ) . '</div>';
+            echo '<div class="search-page-card__excerpt">' . wp_kses_post( $excerpt ) . '</div>';
+            
             echo '</article>';
         }
         echo '</div>';
